@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
@@ -15,8 +15,13 @@ export default function LoginPage() {
     setError('');
 
     // Basic validation
-    if (!email.trim()) {
-      setError('Email is required');
+    if (!username.trim()) {
+      setError('Username is required');
+      return;
+    }
+
+    if (username.trim().length < 3) {
+      setError('Username must be at least 3 characters');
       return;
     }
 
@@ -29,7 +34,8 @@ export default function LoginPage() {
     setIsLoading(true);
     setTimeout(() => {
       // Mock authentication - in real app, this would be an API call
-      if (email === 'user@example.com' && password === 'password123') {
+      // We accept any username with at least 3 chars and password 'password123'
+      if (username.trim().length >= 3 && password === 'password123') {
         // Successful login
         if (rememberMe) {
           // In real app, set a cookie or localStorage for remember me
@@ -38,7 +44,7 @@ export default function LoginPage() {
         // Redirect to dashboard
         window.location.href = '/dashboard';
       } else {
-        setError('Invalid email or password');
+        setError('Invalid username or password');
       }
       setIsLoading(false);
     }, 1000);
@@ -61,19 +67,19 @@ export default function LoginPage() {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
+              <label htmlFor="username" className="sr-only">
+                Username
               </label>
               <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
                 required
                 className="relative block w-full rounded-md border-0 py-1.5 text-base font-medium ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
