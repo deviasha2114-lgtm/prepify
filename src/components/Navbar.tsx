@@ -49,10 +49,12 @@ export default function Navbar() {
             </svg>
           </button>
         </div>
-        <div className="flex flex-1 items-center justify-end sm:mr-6">
+        <div className="flex flex-1 items-center justify-end sm:mr-6 space-x-4">
           <Link href="/dashboard" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-2 rounded-md">Dashboard</Link>
           <Link href="/chat" className="ml-4 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-2 rounded-md">Chat</Link>
           <Link href="/profile" className="ml-4 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-2 rounded-md">Profile</Link>
+          <Link href="/login" className="ml-4 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-2 rounded-md">Login</Link>
+          <Link href="/signup" className="ml-4 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-2 rounded-md">Sign up</Link>
           <button onClick={toggleTheme} className="ml-4 p-2 rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Toggle theme">
             {isDark ? (
               <svg className="h-5 w-5" stroke="currentColor" fill="none" viewBox="0 0 24 24">
