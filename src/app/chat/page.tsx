@@ -1,10 +1,19 @@
+'use client';
+
 import { useState, useEffect, useRef } from 'react';
 
+type Message = {
+  id: number;
+  text: string;
+  user: { id: number; name: string };
+  time: string;
+};
+
 export default function ChatPage() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   // Sample friends list
   const friends = [
@@ -16,7 +25,7 @@ export default function ChatPage() {
 
   // Sample messages
   useEffect(() => {
-    const sampleMessages = [
+    const sampleMessages: Message[] = [
       { id: 1, text: 'Hey! Ready for the study session?', user: { id: 2, name: 'Sam' }, time: '10:03 AM' },
       { id: 2, text: 'Yeah! Just reviewing the calculus notes.', user: { id: 1, name: 'You' }, time: '10:04 AM' },
       { id: 3, text: 'Do you understand the chain rule?', user: { id: 2, name: 'Sam' }, time: '10:05 AM' },
@@ -24,10 +33,10 @@ export default function ChatPage() {
     setMessages(sampleMessages);
   }, []);
 
-  const sendMessage = (e) => {
+  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input.trim() === '') return;
-    const newMsg = {
+    const newMsg: Message = {
       id: Date.now(),
       text: input,
       user: { id: 1, name: 'You' },
@@ -99,7 +108,7 @@ export default function ChatPage() {
             <div className="absolute left-4 bottom-16 bg-card p-2 rounded-md shadow-lg border border-border z-10 w-48">
               {/* Simple emoji picker - just a few emojis */}
               <div className="flex space-x-2">
-                ['😀','😂','😍','😎','👍','🙏','📚','💡','✏️','🔬'].map(emoji => (
+                {['😀','😂','😍','😎','👍','🙏','📚','💡','✏️','🔬'].map(emoji => (
                   <button key={emoji} onClick={() => {
                     setInput(input + emoji);
                     setShowEmojiPicker(false);

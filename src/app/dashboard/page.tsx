@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -111,7 +113,7 @@ export default function Dashboard() {
                 <h3 className="text-sm font-medium text-muted-foreground">{stat.label}</h3>
                 <p className="mt-1 text-2xl font-semibold text-foreground">{stat.value}</p>
                 <p className="mt-1 text-sm">{stat.change.startsWith('+') ?
-                  <span className="text-green-500">↑ {stat.slice(1)}</span> :
+                  <span className="text-green-500">↑ {stat.change.slice(1)}</span> :
                   <span className="text-red-500">↓ {Math.abs(parseInt(stat.change))}%</span>
                 }</p>
               </div>

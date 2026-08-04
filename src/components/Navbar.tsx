@@ -1,13 +1,25 @@
+'use client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
-  const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('theme') === 'dark' || 
-           (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
+  const [isDark, setIsDark] = useState(false);
 
+  // Set initial state based on localStorage or system preference (client-only)
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark' || storedTheme === 'light') {
+      setIsDark(storedTheme === 'dark');
+    } else {
+      setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+  }, []);
+
+  // Update DOM and localStorage whenever isDark changes
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
